@@ -12,7 +12,15 @@ async function main() {
 
   await lock.deployed();
 
-  console.log(`Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`);
+  console.log(
+    `Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
+  );
+
+  const MockSubgraph = await ethers.getContractFactory("MockSubgraph");
+  const mockSubgraph = await MockSubgraph.deploy();
+  await mockSubgraph.deployed();
+
+  console.log("MockSubgraph address:", mockSubgraph.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

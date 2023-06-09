@@ -1,0 +1,10 @@
+type Retired @entity(immutable: true) {
+  id: Bytes!
+  retiree: Bytes! # address
+  token: Bytes! # address
+  tcoAmount: BigInt! # uint256
+  usdcAmount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
