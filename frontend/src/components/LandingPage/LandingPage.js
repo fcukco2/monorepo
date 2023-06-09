@@ -1,16 +1,16 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Header from './Header';
 import MainFeaturedPost from './MainFeaturedPost';
 import FeaturedPost from './FeaturedPost';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
+import { getLeaders } from '../../utils/requests';
 
 const mainFeaturedPost = {
   title: 'CO2',
@@ -22,31 +22,12 @@ const mainFeaturedPost = {
   linkText: 'Continue reading…',
 };
 
-const featuredPosts = [
-  {
-    title: '0xB8603709B333b45D33438AEC',
-    place: '#1',
-    totalInvested: 'USDC: 1000',
-    image: 'https://source.unsplash.com/random?wallpapers',
-    imageLabel: 'Image Text',
-  },
-  {
-    title: '0xa605B3F1B206Eb746A3f5138',
-    place: '#2',
-    totalInvested: 'USDC: 500',
-    image: 'https://source.unsplash.com/random?wallpapers',
-    imageLabel: 'Image Text',
-  },
-];
-
 const sidebar = {
   title: 'About',
   description:
     'Etiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.',
   social: [
     { name: 'GitHub', icon: GitHubIcon },
-    { name: 'Twitter', icon: TwitterIcon },
-    { name: 'Facebook', icon: FacebookIcon },
   ],
 };
 
@@ -54,6 +35,19 @@ const sidebar = {
 const defaultTheme = createTheme();
 
 export default function LandingPage() {
+  const [buyers, setBuyers] = useState({});
+
+  useEffect(() => {
+    let mounted = true;
+    getLeaders()
+      .then(buyers => {
+        if(mounted) {
+          console.log('landing page buyers', buyers);
+          setBuyers(buyers)
+        }
+      })
+    return () => mounted = false;
+  }, [])
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
@@ -62,8 +56,8 @@ export default function LandingPage() {
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
           <Grid container spacing={4}>
-            {featuredPosts.map((post) => (
-              <FeaturedPost key={post.title} post={post} />
+            {Object.keys(buyers).map((buyer) => (
+              <FeaturedPost key ={buyer} buyer={{address: buyer, data: buyers[buyer]}} />
             ))}
           </Grid>
           <Grid container spacing={5} sx={{ mt: 3 }}>
