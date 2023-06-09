@@ -9,6 +9,16 @@ const config: HardhatUserConfig = {
       url: "https://rpc-mumbai.maticvigil.com",
       accounts: [process.env.PRIVATE_KEY || ""],
     },
+    hardhat: {
+      forking: {
+        url: "https://polygon-rpc.com",
+        blockNumber: 43713000
+      },
+      accounts: [{
+        privateKey: process.env.PRIVATE_KEY || "",
+        balance: "10000000000000000000000000"
+      }]
+    }
   },
 };
 
