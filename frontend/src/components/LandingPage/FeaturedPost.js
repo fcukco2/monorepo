@@ -12,6 +12,11 @@ import { ethers } from "ethers";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import Projects from './Projects';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import Co2Icon from '@mui/icons-material/Co2';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 function FeaturedPost(props) {
   const { buyer } = props;
@@ -21,15 +26,33 @@ function FeaturedPost(props) {
       <CardActionArea component="a" href="#">
         <Card sx={{ display: 'flex' }}>
           <CardContent sx={{ flex: 1 }}>
-            <Typography component="h2" variant="h5">
+            <Typography variant="h6" gutterBottom>
               {buyer.address}
             </Typography>
-            <Typography variant="subtitle1" paragraph>
-              <b>USDC: </b> {ethers.utils.formatUnits(buyer.data.usdcAmount, 6)}
-            </Typography>
-            <Typography variant="subtitle1" paragraph>
-              <b>CO₂ Tonne:</b> {ethers.utils.formatEther(buyer.data.tcoAmount)}
-            </Typography>
+            <List
+              sx={{
+                width: '100%',
+                maxWidth: 360,
+                bgcolor: 'background.paper',
+              }}
+            >
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <Co2Icon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText primary="Tones" secondary={ethers.utils.formatEther(buyer.data.tcoAmount)} />
+              </ListItem>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <AttachMoneyIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText primary="USDC" secondary={ethers.utils.formatUnits(buyer.data.usdcAmount, 6)} />
+              </ListItem>
+            </List>
             <Accordion variant="standard" padding="none">
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -38,19 +61,10 @@ function FeaturedPost(props) {
                 padding="none"
                 sx={{ "paddingLeft":0 }}
               >
-                <Typography variant="standard" padding="none">More</Typography>
+                <Typography variant="standard" padding="none">Invested In</Typography>
               </AccordionSummary>
               <AccordionDetails padding="none">
-              <List>
-              {buyer.data.token.map((token) => { 
-                console.log('token', token);
-                return (<ListItem>
-                  <ListItemText
-                    primary={token}
-                  />
-                  </ListItem>);
-              })}
-            </List>
+                <Projects addresses = {buyer.data.token}/>
               </AccordionDetails>
             </Accordion>
           </CardContent>
