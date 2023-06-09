@@ -28,3 +28,4 @@ typechain-types
 cache
 artifacts
 .DS_Store
+output.json
