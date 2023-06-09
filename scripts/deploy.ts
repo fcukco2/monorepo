@@ -9,6 +9,7 @@ async function main() {
 
   const Registry = await ethers.getContractFactory("Registry");
   const registry = await Registry.deploy();
+  await registry.deployed();
   console.log(registry.address);
 }
 
