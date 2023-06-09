@@ -37,7 +37,7 @@ function FeaturedPost(props) {
                 aria-controls="panel1a-content"
                 id="panel1a-header"
                 padding="none"
-                sx={{ "padding-left":0 }}
+                sx={{ "paddingLeft":0 }}
               >
                 <Typography variant="standard" padding="none">More</Typography>
               </AccordionSummary>
@@ -54,15 +54,5 @@ function FeaturedPost(props) {
     </Grid>
   );
 }
-
-FeaturedPost.propTypes = {
-  post: PropTypes.shape({
-    date: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    imageLabel: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default FeaturedPost;
