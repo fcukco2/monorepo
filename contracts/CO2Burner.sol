@@ -7,6 +7,8 @@ import "./interfaces/IUniswapV2Router02.sol";
 import "./interfaces/INatureCarbonTonne.sol";
 import "./interfaces/ITCO2.sol";
 
+import "hardhat/console.sol";
+
 contract CO2Burner {
     Registry public immutable registry;
     IERC20 public immutable stablecoin;
@@ -23,9 +25,16 @@ contract CO2Burner {
     }
 
     function burnProjectToken(address projectToken, uint stableCoinAmount) external returns (uint tco2AmountBurned, uint usdcAmountBurned){
+
+//        function getAmountsIn(uint amountOut, address[] calldata path) external view returns (uint[] memory amounts);
+
         address[] memory path = new address[](2);
         path[0] = address(stablecoin);
         path[1] = address(nctToken);
+        uint[] memory amountsSt = dexRouter.getAmountsIn(INatureCarbonTonne(nctToken).tokenBalances(projectToken), path);
+        uint maxStableIn = amountsSt[0];
+
+        stableCoinAmount = min(stableCoinAmount, maxStableIn);
 
         uint[] memory amounts = dexRouter.getAmountsOut(stableCoinAmount, path);
         uint amountIn = amounts[0];
@@ -40,12 +49,18 @@ contract CO2Burner {
 
         address[] memory tco2s = new address[](1);
         tco2s[0] = projectToken;
+        console.log("amountOut", amountOut);
+
         INatureCarbonTonne(nctToken).redeemMany(tco2s, redeemAmounts);
         uint projectTokenBalance = IERC20(projectToken).balanceOf(address(this));
 
         ITCO2(projectToken).retire(projectTokenBalance);
         emit Retired(msg.sender, projectToken, projectTokenBalance, stableCoinAmount);
         return (projectTokenBalance, stableCoinAmount);
+    }
+
+    function min(uint256 a, uint256 b) internal pure returns (uint256) {
+        return a < b ? a : b;
     }
 
 }

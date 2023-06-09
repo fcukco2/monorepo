@@ -138,4 +138,6 @@ interface INatureCarbonTonne{
     ) external returns (bool);
 
     function getScoredTCO2s() external view returns (address[] memory);
+
+    function tokenBalances(address tco2) external view returns (uint256);
 }

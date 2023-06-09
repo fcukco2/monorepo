@@ -26,7 +26,7 @@ describe("CO2Burner", function () {
     const co2Burner = await CO2Burner.deploy(registry.address, usdcAddress, nctAddress, susiAddress);
 
     const impersonatedSigner = await ethers.getImpersonatedSigner(USDC_BIG_HOLDER)
-    await usdc.connect(impersonatedSigner).transfer(owner.address, ethers.utils.parseUnits("100000", 6))
+    await usdc.connect(impersonatedSigner).transfer(owner.address, ethers.utils.parseUnits("1000000", 6))
     await usdc.connect(owner).approve(co2Burner.address, ethers.constants.MaxUint256)
 
     return {registry, co2Burner, owner, usdc, t0, t1};
@@ -48,10 +48,21 @@ describe("CO2Burner", function () {
         t0,
         "54133266591203315061",
         ethers.utils.parseUnits("100", 6),
-
       )
-
     });
+
+    it("User should be able to buy and retire specified tco2", async function () {
+      const {registry, usdc, co2Burner, t0, owner} = await loadFixture(deployRegistry);
+      await expect(co2Burner.burnProjectToken(t0, ethers.utils.parseUnits("100000", 6))).to.emit(co2Burner, "Retired").withArgs(
+        owner.address,
+        t0,
+        "13245634030000743084483",
+        "25822452520",
+      )
+    });
+
+
+
   });
 
 
