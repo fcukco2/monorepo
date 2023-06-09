@@ -9,7 +9,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Header from './Header';
 import MainFeaturedPost from './MainFeaturedPost';
 import FeaturedPost from './FeaturedPost';
-import Main from './Main';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 import post1 from './blog-post.1.md';
@@ -41,18 +40,16 @@ const mainFeaturedPost = {
 
 const featuredPosts = [
   {
-    title: '0xB8603709B333b45D33438AECaeda7156FB554012',
-    date: '#1',
-    description:
-      'USDC: 1000',
+    title: '0xB8603709B333b45D33438AEC',
+    place: '#1',
+    totalInvested: 'USDC: 1000',
     image: 'https://source.unsplash.com/random?wallpapers',
     imageLabel: 'Image Text',
   },
   {
-    title: '0xa605B3F1B206Eb746A3f5138BeedB72e01c7f9Da',
-    date: '#1',
-    description:
-      'USDC: 500',
+    title: '0xa605B3F1B206Eb746A3f5138',
+    place: '#2',
+    totalInvested: 'USDC: 500',
     image: 'https://source.unsplash.com/random?wallpapers',
     imageLabel: 'Image Text',
   },
@@ -64,19 +61,6 @@ const sidebar = {
   title: 'About',
   description:
     'Etiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.',
-  archives: [
-    { title: 'March 2020', url: '#' },
-    { title: 'February 2020', url: '#' },
-    { title: 'January 2020', url: '#' },
-    { title: 'November 1999', url: '#' },
-    { title: 'October 1999', url: '#' },
-    { title: 'September 1999', url: '#' },
-    { title: 'August 1999', url: '#' },
-    { title: 'July 1999', url: '#' },
-    { title: 'June 1999', url: '#' },
-    { title: 'May 1999', url: '#' },
-    { title: 'April 1999', url: '#' },
-  ],
   social: [
     { name: 'GitHub', icon: GitHubIcon },
     { name: 'Twitter', icon: TwitterIcon },
@@ -101,11 +85,9 @@ export default function Blog() {
             ))}
           </Grid>
           <Grid container spacing={5} sx={{ mt: 3 }}>
-            <Main title="From the firehose" posts={posts} />
             <Sidebar
               title={sidebar.title}
               description={sidebar.description}
-              archives={sidebar.archives}
               social={sidebar.social}
             />
           </Grid>
