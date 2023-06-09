@@ -5,10 +5,10 @@ import * as _ from "lodash";
 const baseUrl = "https://api.senken.io/api";
 
 const catMap = [
-  { name: "None", value: 100 },
-  { name: "Forestry", value: 1 },
-  { name: "Soil Carbon", value: 2 },
-  { name: "Energy", value: 3 },
+  { name: "None", value: "NUL" },
+  { name: "Forestry", value: "FOR" },
+  { name: "Soil Carbon", value: "SOC" },
+  { name: "Energy", value: "ENE" },
 ];
 async function main() {
   const { data, status } = await axios.get<ProjectResponse>(
