@@ -12,19 +12,6 @@ import FeaturedPost from './FeaturedPost';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 
-const sections = [
-  { title: 'Technology', url: '#' },
-  { title: 'Design', url: '#' },
-  { title: 'Culture', url: '#' },
-  { title: 'Business', url: '#' },
-  { title: 'Politics', url: '#' },
-  { title: 'Opinion', url: '#' },
-  { title: 'Science', url: '#' },
-  { title: 'Health', url: '#' },
-  { title: 'Style', url: '#' },
-  { title: 'Travel', url: '#' },
-];
-
 const mainFeaturedPost = {
   title: 'CO2',
   description:
@@ -66,12 +53,12 @@ const sidebar = {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function Blog() {
+export default function LandingPage() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
       <Container maxWidth="lg">
-        <Header title="CO2" sections={sections} />
+        <Header title="CO2" />
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
           <Grid container spacing={4}>
