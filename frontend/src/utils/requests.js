@@ -1,5 +1,6 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import { ethers } from "ethers";
+import dataSet from "../projects.json";
 
 const defaultOptions = {
       watchQuery: {
@@ -61,4 +62,9 @@ const getLeaders = async () => {
 	return buyerStatsFilled;
 };
 
-export { getBuys, getLeaders };
+const getProjects = (ids) => {
+	const projects = dataSet.projects.rows.filter(project => ids.includes(project.address));
+	return projects;
+}
+
+export { getBuys, getLeaders,getProjects };
