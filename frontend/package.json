@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.7.15",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.4",
+    "axios": "^1.4.0",
     "bootstrap": "^4.4.1",
     "ethers": "^5.4.7",
+    "graphql": "^16.6.0",
     "markdown-to-jsx": "^7.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
