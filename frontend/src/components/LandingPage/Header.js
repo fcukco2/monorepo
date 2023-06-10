@@ -8,6 +8,17 @@ import contractAddress from "../../contracts/contract-address.json";
 import AppBar from "@mui/material/AppBar";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
 
 // The next two methods are needed to start and stop polling data. While
 // the data being polled here is specific to this example, you can use this
@@ -33,6 +44,10 @@ export class Header extends React.Component {
       transactionError: undefined,
       networkError: undefined,
       isConnected: false,
+      open: false,
+      categoryFilter: "XXX",
+      countryFilter: "XX",
+      amount: 0,
     };
 
     this.state = this.initialState;
@@ -135,6 +150,22 @@ export class Header extends React.Component {
     }
   }
 
+  handleClickOpen() {
+    this.setState({ open: true });
+  }
+
+  handleClose() {
+    this.setState({ open: false });
+  }
+
+  handleChangeCategory(event) {
+    this.setState({ categoryFilter: event.target.value });
+  }
+
+  handleChangeCountry(event) {
+    this.setState({ countryFilter: event.target.value });
+  }
+
   render() {
     return (
       <AppBar
@@ -163,17 +194,72 @@ export class Header extends React.Component {
               </Typography>
             </Grid>
             <Grid container justifyContent="flex-end">
-              <ConnectWallet
-                connectWallet={() => this._connectWallet()}
-                networkError={this.state.networkError}
-                dismiss={() => this._dismissNetworkError()}
-                isConnected={this.state.isConnected}
-                disconnectWallet={() => this._disconnectWallet()}
-                balance={this.state.balance}
-              />
+              <Button onClick={() => this.handleClickOpen()}>Retire</Button>
             </Grid>
           </Toolbar>
         </Container>
+        <Dialog open={this.state.open} onClose={() => this.handleClose()}>
+          <DialogTitle>Subscribe</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              To retire tonnes of CO2, please enter the amount and provide
+              optional filters.
+            </DialogContentText>
+            <FormControl fullWidth style={{ marginTop: "10px" }}>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Amount USDC"
+                type="number"
+                fullWidth
+                variant="standard"
+              />
+            </FormControl>
+            <FormControl fullWidth style={{ marginTop: "10px" }}>
+              <InputLabel id="demo-simple-select-label">Country</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={this.state.countryFilter}
+                label="Country"
+                onChange={(e) => this.handleChangeCountry(e)}
+              >
+                <MenuItem value={"XX"}>None</MenuItem>
+                <MenuItem value={"BR"}>Brazil</MenuItem>
+                <MenuItem value={"CD"}>Democratic Republic of Congo</MenuItem>
+                <MenuItem value={"KH"}>Cambodia</MenuItem>
+                <MenuItem value={"CN"}>China</MenuItem>
+                <MenuItem value={"CO"}>Columbia</MenuItem>
+                <MenuItem value={"CG"}>Congo</MenuItem>
+                <MenuItem value={"ID"}>Indonesia</MenuItem>
+                <MenuItem value={"KE"}>Kenya</MenuItem>
+                <MenuItem value={"PE"}>Peru</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl fullWidth style={{ marginTop: "10px" }}>
+              <InputLabel id="demo-simple-select-label">Category</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={this.state.categoryFilter}
+                label="Category"
+                onChange={(e) => this.handleChangeCategory(e)}
+              >
+                <MenuItem value={"XXX"}>None</MenuItem>
+                <MenuItem value={"SOC"}>Soil Carbon</MenuItem>
+                <MenuItem value={"ENE"}>Energy</MenuItem>
+                <MenuItem value={"FOR"}>Forestry</MenuItem>
+              </Select>
+            </FormControl>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => this.handleClose()}>Cancel</Button>
+            <Button variant="contained" onClick={() => this.handleClose()}>
+              Retire
+            </Button>
+          </DialogActions>
+        </Dialog>
       </AppBar>
     );
   }
