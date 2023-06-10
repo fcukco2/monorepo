@@ -6,7 +6,7 @@ dataSources:
     name: Retirements
     network: matic
     source:
-      address: "0x39C44B26Cd9254ea08064fff5C97F747bb811b49"
+      address: "0xE66EDdB497af36eF1C52EE2265155e6Edf2ABA05"
       abi: Retirements
       startBlock: 43754145
     mapping:
