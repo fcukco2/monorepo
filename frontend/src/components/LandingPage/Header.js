@@ -191,7 +191,7 @@ export class Header extends React.Component {
                   textDecoration: "none",
                 }}
               >
-                CO2 Terminator
+                CO₂ Terminator
               </Typography>
             </Grid>
             <Grid container justifyContent="flex-end">
@@ -203,7 +203,7 @@ export class Header extends React.Component {
           <DialogTitle>Subscribe</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              To retire tonnes of CO2, please enter the amount and provide
+              To retire tonnes of CO₂, please enter the amount and provide
               optional filters.
             </DialogContentText>
             <FormControl fullWidth style={{ marginTop: "10px" }}>
