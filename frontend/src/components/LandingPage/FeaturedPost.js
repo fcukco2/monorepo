@@ -37,7 +37,8 @@ function FeaturedPost(props) {
   }
 
   const height = {
-    height: '75px'
+    height: '75px',
+    marginTop: '0px'
   }
 
   return (
