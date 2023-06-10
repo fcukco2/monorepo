@@ -5,7 +5,7 @@ import * as output from "../output.json";
 async function main() {
   const [deployer] = await ethers.getSigners();
   const registry = Registry__factory.connect(
-    "0x1646834B4fdDbD9749338A4C23C7a8110861e1C8",
+    "0x6BFe9a97A37DD49fBe0Cb6B010bD5Ecc95662db6",
     deployer
   );
 
@@ -14,10 +14,10 @@ async function main() {
   //const result = await registry.findBestProjectTokens("");
 
   //const result2 = await registry.allProjectTokens(0);
-  const code = await ethers.provider.getCode(
-    "0x1646834B4fdDbD9749338A4C23C7a8110861e1C8"
-  );
-  console.log(`Code: ${code}`);
+  // const code = await ethers.provider.getCode(
+  //   "0x6BFe9a97A37DD49fBe0Cb6B010bD5Ecc95662db6"
+  // );
+  // console.log(`Code: ${code}`);
   //console.log(result);
 }
 
@@ -55,11 +55,11 @@ async function configure(registry: Registry) {
     console.log(`${element.key} TX: ${tx3.hash}`);
   }
 
-  const tx = await registry.addAllProjectTokens(output.baseMap);
-  await tx.wait();
-  console.log(`Base Map TX: ${tx.hash}`);
+  // const tx = await registry.addAllProjectTokens(output.baseMap);
+  // await tx.wait();
+  // console.log(`Base Map TX: ${tx.hash}`);
 
-  await output.categoryMap.reduce(processCategory, undefined);
+  // await output.categoryMap.reduce(processCategory, undefined);
   await output.countryMap.reduce(processCountry, undefined);
 }
 

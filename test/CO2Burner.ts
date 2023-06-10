@@ -43,11 +43,11 @@ describe("CO2Burner", function () {
   describe("Burn test", function () {
     it("User should be able to buy and retire specified tco2 with a small amount of usdc", async function () {
       const {registry, usdc, co2Burner, t0, owner} = await loadFixture(deployRegistry);
-      await expect(co2Burner.burnProjectToken(t0, ethers.utils.parseUnits("100", 6))).to.emit(co2Burner, "Retired").withArgs(
+      await expect(co2Burner.burnProjectToken(t0, ethers.utils.parseUnits("1", 6))).to.emit(co2Burner, "Retired").withArgs(
         owner.address,
         t0,
         "54133266591203315061",
-        ethers.utils.parseUnits("100", 6),
+        ethers.utils.parseUnits("1", 6),
       )
     });
 

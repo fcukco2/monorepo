@@ -15,9 +15,9 @@ import FeaturedPostsNames from './FeaturedPostsNames';
 import Typography from '@mui/material/Typography';
 
 const mainFeaturedPost = {
-  title: 'CO2',
+  title: 'CO₂',
   description:
-    "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
+    "CO₂ Terminator is your ultimate blockchain beast built to annihilate carbon emissions. We're harnessing the power of smart contracts to automate the offsetting game like never before. Forget the manual labor, we're about to go auto and all-in on saving the planet.",
   //image: 'https://source.unsplash.com/random?wallpapers',
   image: 'https://images.unsplash.com/photo-1508138221679-760a23a2285b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8d2FsbHBhcGVyc3x8fHx8fDE2ODYzMDIwNzM&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080',
   imageText: 'main image description',
@@ -49,7 +49,7 @@ export default function LandingPage() {
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline/>
       <Container maxWidth="lg">
-        <Header title="CO2"/>
+        <Header title="CO₂"/>
         <main>
           <MainFeaturedPost post={mainFeaturedPost}/>
           <Typography variant="h4" gutterBottom style={{paddingLeft: "16px"}}>

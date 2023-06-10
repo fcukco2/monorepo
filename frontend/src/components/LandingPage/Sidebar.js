@@ -77,15 +77,4 @@ function Sidebar(props) {
   );
 }
 
-Sidebar.propTypes = {
-  description: PropTypes.string.isRequired,
-  social: PropTypes.arrayOf(
-    PropTypes.shape({
-      icon: PropTypes.elementType,
-      name: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  title: PropTypes.string.isRequired,
-};
-
 export default Sidebar;

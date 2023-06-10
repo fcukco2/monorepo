@@ -1,6 +1,8 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 import dotenv from "dotenv";
+import "hardhat-deploy";
+
 dotenv.config();
 
 const config: HardhatUserConfig = {
@@ -10,10 +12,13 @@ const config: HardhatUserConfig = {
       url: "https://rpc-mumbai.maticvigil.com",
       accounts: [process.env.PRIVATE_KEY || ""],
     },
+    matic: {
+      url: `https://polygon-mainnet.g.alchemy.com/v2/` + process.env.MATIC_API_KEY,
+      accounts: [process.env.PRIVATE_KEY || ""],
+    },
     hardhat: {
       forking: {
         url: "https://polygon-rpc.com",
-        blockNumber: 43713000,
       },
       accounts: [
         {
@@ -23,6 +28,12 @@ const config: HardhatUserConfig = {
       ],
     },
   },
+  etherscan: {
+    apiKey: process.env.ETHERSCAN_API_KEY
+  },
+  namedAccounts: {
+    deployer: 0
+  }
 };
 
 export default config;
