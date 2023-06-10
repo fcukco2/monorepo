@@ -50,7 +50,7 @@ export default function LandingPage() {
         <Header title="CO2"/>
         <main>
           <MainFeaturedPost post={mainFeaturedPost}/>
-          <Grid container spacing={5}>
+          <Grid container spacing={1}>
             {buyers.map((buyer, index) => (
               <FeaturedPost key={index} buyer={{address: buyer, data: buyer, index: index}}/>
             ))}

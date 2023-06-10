@@ -38,57 +38,58 @@ function FeaturedPost(props) {
 
   const height = {
     height: '75px',
-    marginTop: '0px'
+    marginTop: '0px',
   }
 
   return (
     <Grid item xs={12} md={12}>
       <CardActionArea component="a" href="#">
         <Card sx={{display: 'flex'}}>
-          <CardContent sx={{flex: 1}}>
-            <List
-              sx={{
-                bgcolor: 'background.paper',
-              }}
-              style={flexContainer}
-              component={Stack}
-              spacing={2}
-            >
-              <ListItem style={place}>
-                <Chip label={buyer.index + 1} variant="outlined"/>
-              </ListItem>
-              <ListItem style={height}>
-                <Typography variant="h6" gutterBottom>
-                  {buyer.address.key}
-                </Typography>
-              </ListItem>
-              <ListItem style={height}>
-                <ListItemAvatar>
-                  <Avatar>
-                    <Co2Icon/>
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary="Tones" secondary={ethers.utils.formatEther(buyer.data.tcoAmount)}/>
-              </ListItem>
-              <ListItem style={height}>
-                <ListItemAvatar>
-                  <Avatar>
-                    <AttachMoneyIcon/>
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary="USDC" secondary={ethers.utils.formatUnits(buyer.data.usdcAmount, 6)}/>
-              </ListItem>
-            </List>
+          <CardContent sx={{flex: 1}} style={{paddingBottom: '16px'}}>
             <Accordion variant="standard" padding="none">
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon/>}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-                padding="none"
-                sx={{"paddingLeft": 0}}
+              <List
+                sx={{
+                  bgcolor: 'background.paper',
+                }}
+                style={flexContainer}
+                component={Stack}
+                spacing={2}
               >
-                <Typography variant="standard" padding="none">Invested In</Typography>
-              </AccordionSummary>
+                <ListItem style={place}>
+                  <Chip label={buyer.index + 1} variant="outlined"/>
+                </ListItem>
+                <ListItem style={height}>
+                  <Typography variant="h6" gutterBottom>
+                    {buyer.address.key}
+                  </Typography>
+                </ListItem>
+                <ListItem style={height}>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <Co2Icon/>
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary="Tones" secondary={ethers.utils.formatEther(buyer.data.tcoAmount)}/>
+                </ListItem>
+                <ListItem style={height}>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <AttachMoneyIcon/>
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary="USDC" secondary={ethers.utils.formatUnits(buyer.data.usdcAmount, 6)}/>
+                </ListItem>
+                <ListItem style={{height: '75px', width: '50px', marginTop: '0px'}}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon/>}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                    padding="none"
+                    sx={{"paddingLeft": 0}}
+                  >
+                  </AccordionSummary>
+                </ListItem>
+              </List>
               <AccordionDetails padding="none">
                 <Projects addresses={buyer.data.token}/>
               </AccordionDetails>
