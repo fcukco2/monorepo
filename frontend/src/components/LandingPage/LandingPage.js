@@ -1,16 +1,16 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Header from './Header';
 import MainFeaturedPost from './MainFeaturedPost';
 import FeaturedPost from './FeaturedPost';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
-import { getLeaders } from '../../utils/requests';
+import {getLeaders} from '../../utils/requests';
 
 const mainFeaturedPost = {
   title: 'CO2',
@@ -23,11 +23,8 @@ const mainFeaturedPost = {
 };
 
 const sidebar = {
-  title: 'About',
-  description:
-    'Etiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.',
   social: [
-    { name: 'GitHub', icon: GitHubIcon },
+    {name: 'GitHub', icon: GitHubIcon, link: 'https://github.com/fcukco2/monorepo'},
   ],
 };
 
@@ -35,14 +32,12 @@ const sidebar = {
 const defaultTheme = createTheme();
 
 export default function LandingPage() {
-  const [buyers, setBuyers] = useState({});
-
+  const [buyers, setBuyers] = useState([]);
   useEffect(() => {
     let mounted = true;
     getLeaders()
       .then(buyers => {
-        if(mounted) {
-          console.log('landing page buyers', buyers);
+        if (mounted) {
           setBuyers(buyers)
         }
       })
@@ -50,17 +45,17 @@ export default function LandingPage() {
   }, [])
   return (
     <ThemeProvider theme={defaultTheme}>
-      <CssBaseline />
+      <CssBaseline/>
       <Container maxWidth="lg">
-        <Header title="CO2" />
+        <Header title="CO2"/>
         <main>
-          <MainFeaturedPost post={mainFeaturedPost} />
-          <Grid container spacing={4}>
-            {Object.keys(buyers).map((buyer) => (
-              <FeaturedPost key ={buyer} buyer={{address: buyer, data: buyers[buyer]}} />
+          <MainFeaturedPost post={mainFeaturedPost}/>
+          <Grid container spacing={5}>
+            {buyers.map((buyer, index) => (
+              <FeaturedPost key={index} buyer={{address: buyer, data: buyer, index: index}}/>
             ))}
           </Grid>
-          <Grid container spacing={5} sx={{ mt: 3 }}>
+          <Grid container spacing={5} sx={{mt: 3, pl: 5}}>
             <Sidebar
               title={sidebar.title}
               description={sidebar.description}
@@ -70,8 +65,8 @@ export default function LandingPage() {
         </main>
       </Container>
       <Footer
-        title="Footer"
-        description="Something here to give the footer a purpose!"
+        title="Fcuk CO₂"
+        description="An easy way to make useful!"
       />
     </ThemeProvider>
   );
