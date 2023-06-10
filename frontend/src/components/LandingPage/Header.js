@@ -3,7 +3,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { ethers } from "ethers";
 import CO2Burner from "../../contracts/CO2Burner.json";
-import contractAddress from "../../contracts/contract-address.json";
 import usdc from "../../contracts/usdc.json";
 import AppBar from "@mui/material/AppBar";
 import Grid from "@mui/material/Grid";
@@ -20,7 +19,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 
-const HARDHAT_NETWORK_ID = "80001";
+const HARDHAT_NETWORK_ID = "137";
+const CO2BURNER = "0xE66EDdB497af36eF1C52EE2265155e6Edf2ABA05";
 
 export class Header extends React.Component {
   constructor(props) {
@@ -54,7 +54,7 @@ export class Header extends React.Component {
   async _initializeEthers() {
     this._provider = new ethers.providers.Web3Provider(window.ethereum);
     this.co2Burner = new ethers.Contract(
-      contractAddress.CO2Burner,
+      CO2BURNER,
       CO2Burner.abi,
       this._provider.getSigner(0)
     );
@@ -72,8 +72,9 @@ export class Header extends React.Component {
     const [selectedAddress] = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
+    const addr = ethers.utils.getAddress(selectedAddress);
     this._checkNetwork();
-    this._initialize(selectedAddress);
+    this._initialize(addr);
     window.ethereum.on("accountsChanged", ([newAddress]) => {
       this._stopPollingData();
       if (newAddress === undefined) {
@@ -82,6 +83,7 @@ export class Header extends React.Component {
 
       this._initialize(newAddress);
     });
+    return addr;
   }
 
   _stopPollingData() {
@@ -131,22 +133,19 @@ export class Header extends React.Component {
   }
 
   async handleRetire() {
-    await this._connectWallet();
+    const selectedAddress = await this._connectWallet();
     const amountEth = this.state.amount * 10 ** 6;
     const approvedAmount = await this.usdc.allowance(
-      this.selectedAddress,
-      contractAddress.CO2Burner
+      selectedAddress,
+      CO2BURNER
     );
-    if (approvedAmount < amountEth) {
-      const approval = await this.usdc.approve(
-        contractAddress.CO2Burner,
-        amountEth
-      );
+    if (approvedAmount.toNumber() < amountEth) {
+      const approval = await this.usdc.approve(CO2BURNER, amountEth);
       await approval.wait();
       console.log("Approval tx hash: " + approval.hash);
     }
     const tx = await this.co2Burner.burnCO2(
-      this.state.amount,
+      this.state.amount * 10 ** 6,
       this.state.countryFilter + this.state.categoryFilter
     );
     await tx.wait();
@@ -216,6 +215,7 @@ export class Header extends React.Component {
                 type="number"
                 fullWidth
                 variant="standard"
+                onChange={(e) => this.setState({ amount: e.target.value })}
               />
             </FormControl>
             <FormControl fullWidth style={{ marginTop: "10px" }}>
