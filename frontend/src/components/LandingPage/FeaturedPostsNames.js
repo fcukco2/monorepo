@@ -57,7 +57,7 @@ function FeaturedPostsNames() {
         </ListItem>
         <ListItem style={{...height, minWidth: '40%'}}>
           <Typography variant="h6" gutterBottom>
-            Adress
+            Address
           </Typography>
         </ListItem>
         <ListItem style={{height, maxWidth: '23%'}}>
