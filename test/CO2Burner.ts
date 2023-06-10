@@ -41,7 +41,7 @@ describe("CO2Burner", function () {
   });
 
   describe("Burn test", function () {
-    it("User should be able to buy and retire specified tco2", async function () {
+    it("User should be able to buy and retire specified tco2 with a small amount of usdc", async function () {
       const {registry, usdc, co2Burner, t0, owner} = await loadFixture(deployRegistry);
       await expect(co2Burner.burnProjectToken(t0, ethers.utils.parseUnits("100", 6))).to.emit(co2Burner, "Retired").withArgs(
         owner.address,
@@ -51,16 +51,36 @@ describe("CO2Burner", function () {
       )
     });
 
-    it("User should be able to buy and retire specified tco2", async function () {
+    it("User should be able to buy and retire specified tco2 with a big amount of usdc", async function () {
       const {registry, usdc, co2Burner, t0, owner} = await loadFixture(deployRegistry);
+
+      const tco2BurnedExpected = "13245634030000743084483"
+      const usdcBurnedExpected = "25822452520"
+      const quote = await co2Burner.burnProjectTokenQuote(t0, ethers.utils.parseUnits("100000", 6))
+      expect(quote[0]).to.equal(tco2BurnedExpected)
+      expect(quote[1]).to.equal(usdcBurnedExpected)
+
       await expect(co2Burner.burnProjectToken(t0, ethers.utils.parseUnits("100000", 6))).to.emit(co2Burner, "Retired").withArgs(
         owner.address,
         t0,
-        "13245634030000743084483",
-        "25822452520",
+        tco2BurnedExpected,
+        usdcBurnedExpected,
       )
     });
 
+    it("User should be able to buy and retire tco2 based of filter", async function () {
+      const {registry, usdc, co2Burner, t0, owner} = await loadFixture(deployRegistry);
+      const tco2BurnedExpected = "13245634030000743084483"
+      const usdcBurnedExpected = "25822452520"
+      const usdcToBurn = ethers.utils.parseUnits("100000", 6)
+
+      await expect(co2Burner.burnCO2(usdcToBurn, "")).to.emit(co2Burner, "Retired").withArgs(
+        owner.address,
+        t0,
+        tco2BurnedExpected,
+        usdcBurnedExpected,
+      )
+    });
 
 
   });
