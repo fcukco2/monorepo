@@ -28,7 +28,7 @@ contract CO2Burner {
         uint index = 0;
         totalTco2AmountBurned = 0;
         totalUsdcAmountBurned = 0;
-        while (stableCoinAmount > 0 && index < projectTokens.length) {
+        while (stableToBurn > 0 && index < projectTokens.length) {
             uint tco2AmountBurned;
             uint usdcAmountBurned;
             (tco2AmountBurned, usdcAmountBurned) = burnProjectToken(projectTokens[index], stableToBurn);
