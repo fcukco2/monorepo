@@ -11,6 +11,8 @@ import FeaturedPost from './FeaturedPost';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 import {getLeaders} from '../../utils/requests';
+import FeaturedPostsNames from './FeaturedPostsNames';
+import Typography from '@mui/material/Typography';
 
 const mainFeaturedPost = {
   title: 'CO2',
@@ -50,7 +52,11 @@ export default function LandingPage() {
         <Header title="CO2"/>
         <main>
           <MainFeaturedPost post={mainFeaturedPost}/>
+          <Typography variant="h4" gutterBottom style={{paddingLeft: "16px"}}>
+            Leaderboard
+          </Typography>
           <Grid container spacing={1}>
+            <FeaturedPostsNames/>
             {buyers.map((buyer, index) => (
               <FeaturedPost key={index} buyer={{address: buyer, data: buyer, index: index}}/>
             ))}

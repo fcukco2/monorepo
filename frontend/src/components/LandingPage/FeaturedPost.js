@@ -45,7 +45,7 @@ function FeaturedPost(props) {
     <Grid item xs={12} md={12}>
       <CardActionArea component="a" href="#">
         <Card sx={{display: 'flex'}}>
-          <CardContent sx={{flex: 1}} style={{paddingBottom: '16px'}}>
+          <CardContent sx={{flex: 1}} style={{padding: '0px'}}>
             <Accordion variant="standard" padding="none">
               <List
                 sx={{
@@ -53,7 +53,7 @@ function FeaturedPost(props) {
                 }}
                 style={flexContainer}
                 component={Stack}
-                spacing={2}
+                spacing={1}
               >
                 <ListItem style={place}>
                   <Chip label={buyer.index + 1} variant="outlined"/>
@@ -64,20 +64,10 @@ function FeaturedPost(props) {
                   </Typography>
                 </ListItem>
                 <ListItem style={height}>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <Co2Icon/>
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary="Tones" secondary={ethers.utils.formatEther(buyer.data.tcoAmount)}/>
+                  <ListItemText primary={ethers.utils.formatEther(buyer.data.tcoAmount)}/>
                 </ListItem>
                 <ListItem style={height}>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <AttachMoneyIcon/>
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary="USDC" secondary={ethers.utils.formatUnits(buyer.data.usdcAmount, 6)}/>
+                  <ListItemText primary={ethers.utils.formatUnits(buyer.data.usdcAmount, 6)}/>
                 </ListItem>
                 <ListItem style={{height: '75px', width: '50px', marginTop: '0px'}}>
                   <AccordionSummary

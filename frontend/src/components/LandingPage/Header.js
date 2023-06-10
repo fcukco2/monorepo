@@ -175,7 +175,8 @@ export class Header extends React.Component {
       >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <Grid container justifyContent="flex-start">
+            <Grid container justifyContent="flex-start" alignItems="center" style={{paddingLeft: '24px'}}>
+              <img src={'/co2terminator.png'} style={{width: '55px', marginRight: '10px'}}/>
               <Typography
                 variant="h6"
                 noWrap
