@@ -1,6 +1,4 @@
 import React from "react";
-
-import { NetworkErrorMessage } from "./NetworkErrorMessage";
 import { Button, Typography, Grid } from "@mui/material";
 
 export default function ConnectWallet({
