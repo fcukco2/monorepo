@@ -15,9 +15,9 @@ function Projects(props) {
   const projects = getProjects(addresses);
   return (
     <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 2, md: 3}}>
-      {projects.map((project) => {
+      {projects.map((project, index) => {
         return (
-          <Grid item xs={6}>
+          <Grid item xs={6} key={project.address}>
             <Card sx={{maxWidth: 550}}>
               <CardMedia
                 sx={{height: 240}}
