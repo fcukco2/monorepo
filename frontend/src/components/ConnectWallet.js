@@ -1,31 +1,42 @@
 import React from "react";
 
 import { NetworkErrorMessage } from "./NetworkErrorMessage";
+import { Button, Typography, Grid } from "@mui/material";
 
-export function ConnectWallet({ connectWallet, networkError, dismiss }) {
+export default function ConnectWallet({
+  connectWallet,
+  networkError,
+  dismiss,
+  isConnected,
+  disconnectWallet,
+  balance,
+}) {
   return (
-    <div className="container">
-      <div className="row justify-content-md-center">
-        <div className="col-12 text-center">
-          {/* Wallet network should be set to Localhost:8545. */}
-          {networkError && (
-            <NetworkErrorMessage 
-              message={networkError} 
-              dismiss={dismiss} 
-            />
-          )}
-        </div>
-        <div className="col-6 p-4 text-center">
-          <p>Please connect to your wallet.</p>
-          <button
-            className="btn btn-warning"
+    <Grid container justifyContent="flex-end">
+      {!isConnected ? (
+        <Grid container justifyContent="flex-end">
+          <Button
+            className="btn btn-primary"
             type="button"
+            variant="contained"
             onClick={connectWallet}
+            textAlign="right"
           >
             Connect Wallet
-          </button>
-        </div>
-      </div>
-    </div>
+          </Button>
+        </Grid>
+      ) : (
+        <Grid container justifyContent="flex-end">
+          <Typography>{balance}</Typography>
+          <Button
+            className="btn btn-warning"
+            type="button"
+            onClick={disconnectWallet}
+          >
+            Disconnect Wallet
+          </Button>
+        </Grid>
+      )}
+    </Grid>
   );
 }
