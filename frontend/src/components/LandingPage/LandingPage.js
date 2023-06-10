@@ -65,8 +65,8 @@ export default function LandingPage() {
         </main>
       </Container>
       <Footer
-        title="Footer"
-        description="Something here to give the footer a purpose!"
+        title="Fcuk CO₂"
+        description="An easy way to make useful!"
       />
     </ThemeProvider>
   );
