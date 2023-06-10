@@ -35,14 +35,12 @@ const sidebar = {
 const defaultTheme = createTheme();
 
 export default function LandingPage() {
-  const [buyers, setBuyers] = useState({});
-
+  const [buyers, setBuyers] = useState([]);
   useEffect(() => {
     let mounted = true;
     getLeaders()
       .then(buyers => {
         if(mounted) {
-          console.log('landing page buyers', buyers);
           setBuyers(buyers)
         }
       })
@@ -56,8 +54,8 @@ export default function LandingPage() {
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
           <Grid container spacing={4}>
-            {Object.keys(buyers).map((buyer) => (
-              <FeaturedPost key ={buyer} buyer={{address: buyer, data: buyers[buyer]}} />
+            {buyers.map((buyer, index) => (
+              <FeaturedPost key={index} buyer={{address: buyer, data: buyer, index: index}} />
             ))}
           </Grid>
           <Grid container spacing={5} sx={{ mt: 3 }}>
